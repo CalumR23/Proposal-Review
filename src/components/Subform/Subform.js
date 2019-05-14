@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import "./Sform.css";
+import React, { Component } from 'react';
+import './Sform.css';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
 
 export default class Sform extends
-    React.Component {
-    constructor(props) {
-        super(props);
-    }
+  React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <body>
                 <div>
                     <Form>
@@ -18,7 +18,7 @@ export default class Sform extends
                             <Form.Label>Name</Form.Label>
                             <Form.Control type="name" placeholder="Enter name" />
                         </Form.Group>
-                        
+
                         <Form.Group controlId="formControlSelect">
                             <Form.Label>Reviewer</Form.Label>
                             <Form.Control as="select" multiple>
@@ -34,18 +34,18 @@ export default class Sform extends
                             <Form.Label>Email Body</Form.Label>
                             <Form.Control as="textarea" rows="3" />
                         </Form.Group>
-                        
+
                         <Form.Group controlId="formAttachment">
                         <Form.Label>Attachment</Form.Label>
                         <Form.control type="file" />
                         </Form.Group>
-                        
+
                         <Button variant="primary" type="submit">
                             Submit
                          </Button>
                     </Form>;
                 </div>
             </body>
-        )
-    }
+    );
+  }
 }

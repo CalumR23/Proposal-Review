@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import "./Lform.css";
+import React, { Component } from 'react';
+import './Lform.css';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
 
 export default class Lform extends
-    React.Component {
-    
-
-    render() {
-        return (
+  React.Component {
+  render() {
+    return (
             <body>
                 <div>
                     <Form>
@@ -27,6 +25,6 @@ export default class Lform extends
                     </Form>;
                 </div>
             </body>
-        )
-    }
+    );
+  }
 }

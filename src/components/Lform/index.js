@@ -1,1 +1,1 @@
-export {default} from "./Lform"
+export { default } from './Lform';
