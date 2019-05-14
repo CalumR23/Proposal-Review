@@ -11,15 +11,13 @@ export default class Signup extends
     super(props);
   }
 
-  render() {
-    return (
-            <body>
-                <div>
-                <Header />
-                    <Sform />
-                    <Footer />
-                </div>
-            </body>
-    );
-  }
+    render() {
+        return (
+          <div>
+          <Header />
+              <Sform />
+              <Footer />
+          </div>
+        )
+    }
 }

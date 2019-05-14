@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import './Header.css';
 
 export default class Header extends
-  React.Component {
-  constructor(props) {
-    super(props);
-  }
+React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-  render() {
-    return (
-            <body>
-                <header>
-                    Proposal Reviewer
-                </header>
-            </body>
-    );
-  }
-}
+    render(){
+        return (
+          <header>
+              Proposal Reviewer
+          </header>
+        )
+    }
+    }

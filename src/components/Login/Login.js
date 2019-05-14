@@ -10,16 +10,14 @@ export default class Login extends
     super(props);
   }
 
-  render() {
-    return (
-            <body>
-                <div>
-                    <p>Am I just really stupidd?</p>
-                    <Header />
-                    <Lform />
-                    <Footer />
-                </div>
-            </body>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <p>Am I just really stupid?</p>
+                <Header />
+                <Lform />
+                <Footer />
+            </div>
+        )
+    }
 }

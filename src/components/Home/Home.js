@@ -10,16 +10,13 @@ export default class Home extends
     super(props);
   }
 
-  render() {
-    return (
-            <body>
-                <div>
-
-                    <Header />
-                    <Subform />
-                    <Footer />
-                </div>
-            </body>
-    );
-  }
+    render() {
+        return (
+            <div>
+              <Header />
+              <Subform />
+              <Footer />             
+            </div>
+        )
+    }
 }
