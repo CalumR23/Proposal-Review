@@ -12,14 +12,12 @@ export default class Login extends
 
     render() {
         return (
-            <body>
-                <div>
-                    <p>Am I just really stupidd?</p>
-                    <Header />
-                    <Lform />
-                    <Footer />             
-                </div>
-            </body>
+            <div>
+                <p>Am I just really stupid?</p>
+                <Header />
+                <Lform />
+                <Footer />
+            </div>
         )
     }
 }

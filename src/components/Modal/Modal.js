@@ -6,15 +6,13 @@ React.Component {
     constructor(props) {
         super(props);
     }
-    
+
     render(){
         return (
-            <body>
-                <div>
-                    <h3>Success!</h3>
-                        <p>Email has been sent succesfully.</p>
-                </div>
-            </body>
+            <div>
+                <h3>Success!</h3>
+                    <p>Email has been sent succesfully.</p>
+            </div>
         )
     }
     }

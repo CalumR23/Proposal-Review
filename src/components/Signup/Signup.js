@@ -13,13 +13,11 @@ export default class Signup extends
 
     render() {
         return (
-            <body>
-                <div>
-                <Header />
-                    <Sform />
-                    <Footer />  
-                </div>
-            </body>
+          <div>
+          <Header />
+              <Sform />
+              <Footer />
+          </div>
         )
     }
 }

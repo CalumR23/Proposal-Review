@@ -12,14 +12,11 @@ export default class Home extends
 
     render() {
         return (
-            <body>
-                <div>
-                    
-                    <Header />
-                    <Subform />
-                    <Footer />             
-                </div>
-            </body>
+            <div>
+              <Header />
+              <Subform />
+              <Footer />             
+            </div>
         )
     }
 }

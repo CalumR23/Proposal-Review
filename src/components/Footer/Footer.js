@@ -6,14 +6,12 @@ React.Component {
     constructor(props) {
         super(props);
     }
-    
-    render(){
+
+    render() {
         return (
-            <body>
-                <footer>
-                    Done by Salon Hero LLC
-                </footer>
-            </body>
+          <footer>
+              Done by Salon Hero LLC
+          </footer>
         )
-    }
+      }
     }

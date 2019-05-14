@@ -31,6 +31,7 @@ module.exports = {
     proxy: {
       '/api': 'http://localhost:8000', // http proxy for redirecting apis to local server;
     },
+    stats: 'errors-only'
   },
   plugins: [
     new CleanWebpackPlugin(), // removes all files in webpack's output.path
