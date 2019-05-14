@@ -20,15 +20,9 @@ class App extends React.Component {
         </ul>
 
 
-        <Route exact path="/" component={Login}
-        />
+        <Route exact path="/" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route
-          path='/home'
-
-          render={(props) => <Home
-            handler = {this.handler} />}
-        />
+        <Route path="/home" component={Home} />
       </div>
     </Router>
     );
