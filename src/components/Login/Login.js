@@ -13,7 +13,6 @@ export default class Login extends
     render() {
         return (
             <div>
-                <p>Am I just really stupid?</p>
                 <Header />
                 <Lform />
                 <Footer />

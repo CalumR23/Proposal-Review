@@ -34,7 +34,7 @@ export default class Sform extends
                   <Button variant="primary" type="submit">
                       Submit
                    </Button>
-              </Form>;
+              </Form>
           </div>
         )
     }
