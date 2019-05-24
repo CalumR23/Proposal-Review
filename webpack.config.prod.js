@@ -14,6 +14,7 @@ const outputDir = 'dist';
 
 module.exports = {
   devtool: false,
+  stats: 'errors-only',
   mode: 'production',
   entry: ['babel-polyfill', './src/client/index.js'], // enables async-await in client code with babel-polyfill
   output: {

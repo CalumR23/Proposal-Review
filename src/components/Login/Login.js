@@ -14,9 +14,11 @@ export default class Login extends
         return (
             <div>
                 <Header />
-                <Lform />
+                <a href='/auth/google'>Google Log In</a>
                 <Footer />
             </div>
         )
     }
 }
+
+//Put <LForm> back 

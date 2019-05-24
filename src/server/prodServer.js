@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const os = require('os');
+const path = require('path');
 
 dotenv.config();
 
@@ -14,14 +15,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 app.use(errorhandler());
 
+//Serve Statics
 app.use(express.static('dist'));
-app.get('/api/getUsername', (req, res, next) => {
-  res.send({
-    username: os.userInfo().username,
-  });
+app.use(express.static('public'));
+
+//Serve Index on Client Call for History Redirect
+app.get("*", (req,res)=> {
+  res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
 });
 
-const PORT = process.env.PORT || 8000;
+
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Listening on PORT ${PORT}`);
 });
