@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const authRouter = express.Router();
 
-const auth = require('../auth/index.js');
+const auth = require('../auth/OAuth.js');
 
 authRouter.get('/google', passport.authenticate('google', {
   scope: ['profile']

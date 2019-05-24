@@ -24,17 +24,28 @@ app.use(express.static('public'));
 const webpack = require('webpack');
 const config = require('../../webpack.config.dev.js');
 const compiler = webpack(config);
-
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath,
   stats: 'errors-only',
 }));
-
 app.use(require('webpack-hot-middleware')(compiler));
 
-//Import & Mount Routes
+//Connect MongoDB
+const mongoose = require('mongoose');
+mongoose.connect(
+  `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PW}@ds261486.mlab.com:61486/heroku_04fps406`,
+  {useNewUrlParser: true}
+);
+const db = mongoose.connection;
+db.on('error', ()=> {
+  console.error.bind(console, 'connection error:');
+})
+db.once('open', ()=> {
+  console.log('Connected to MongoDB');
+})
 
+//Import & Mount Routes
 const authRouter = require('./routes/authRouter.js');
 app.use('/auth', authRouter);
 
