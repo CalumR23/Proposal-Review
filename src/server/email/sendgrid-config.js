@@ -1,6 +1,6 @@
 //First Email Via SendGrid
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 function createEmails(recipients = [], subject, message) {
   let cleanedMessage = message + "";
