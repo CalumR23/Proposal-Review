@@ -5,11 +5,11 @@ const authRouter = express.Router();
 const auth = require('../auth/OAuth.js');
 
 authRouter.get('/google', passport.authenticate('google', {
-  scope: ['profile']
+  scope: ['profile', 'email']
 }));
 
-authRouter.get('/google/cb', passport.authenticate('google'), (req,res)=> {
-  console.log('You have reached callback URI');
+authRouter.get('/google/cb', passport.authenticate('google'), (req, res)=> {
+  res.redirect('/home');
 })
 
 module.exports = authRouter;
