@@ -1,9 +1,9 @@
 const User = require('../models/User.js');
 const express = require('express');
-
+const middleware = require('../middleware/loginAuth.js');
 const UserRouter = express.Router();
 
-UserRouter.get('/all', (req,res)=> {
+UserRouter.get('/all', middleware.loginAuth, (req,res)=> {
   User.find({}).then((users)=> {
     res.json({
       success: true,
@@ -16,7 +16,7 @@ UserRouter.get('/all', (req,res)=> {
   })
 })
 
-UserRouter.get('/current', (req, res)=> {
+UserRouter.get('/current', middleware.loginAuth, (req, res)=> {
   let paramsId = req.query.id;
   User.findOne({_id: paramsId}).then((response)=> {
     res.json({

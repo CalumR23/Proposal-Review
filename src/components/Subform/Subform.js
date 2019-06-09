@@ -23,11 +23,14 @@ export default class Subform extends React.Component {
       //Check if User Logged In
       axios.get('/login/success').then((response)=> {
         let current = response.data.user;
+
+        //If logged in, get current user
         axios.get('/user/current', {
           params: {
             id: current
           }
         }).then((response)=> {
+          //Save User in State
           let user = response.data.user;
           this.setState({
             currentUser: {
@@ -39,9 +42,9 @@ export default class Subform extends React.Component {
         })
       });
 
-      //Populate All Reviewers for DropDown
+      //Populate All Reviewers for DropDown --> Get All
       axios.get('/user/all').then((response)=> {
-        let reviewers = response.data.users
+        let reviewers = response.data.users;
         this.setState({
           users: reviewers
         });
@@ -50,24 +53,29 @@ export default class Subform extends React.Component {
 
     handleSubmit(e) {
       //Handle Form Submission
+      e.preventDefault();
       this.setState({
         emailSent: false
       });
 
-      e.preventDefault();
-      let {name, emailBody, file} = e.target;
+      let {name, emailBody} = e.target;
+      let file = e.target[3].files[0];
+      console.log(file);
+
       let emails = [];
 
       //Get Values from Multiple Select
       const selected = document.querySelectorAll('.reviewers option:checked');
       const values = Array.from(selected).map(el => el.value); //Array.from --> transforms list into array
+      console.log(values);
+
       for (let i=0; i<values.length; i++) {
         emails.push(values[i]);
       }
 
       const url = '/sendEmail';
       const formData = new FormData();
-      formData.append('file', file.value);
+      formData.append('file', file);
       formData.append('name', name.value);
       formData.append('emails', emails);
       formData.append('emailBody', emailBody.value);

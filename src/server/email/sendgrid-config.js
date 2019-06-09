@@ -22,8 +22,7 @@ function createEmails(recipients = [], subject, message) {
 }
 
 function sendEmails(emails, cb) {
-  sgMail.send(emails);
-  cb();
+  return sgMail.send(emails, cb);
 }
 
 module.exports = {
