@@ -2,18 +2,20 @@
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-//Please Review
-function createAdminEmails(recipients = [], reviewerName, applicantName) {
+//Message: Please Review these Emails
+function createAdminEmails(reviewers, applicant) {
   let emails = [];
 
-  for (let i=0; i<recipients.length; i++) {
+  //Parse Through Reviewers to create Emails
+  for (let i=0; i<reviewers.length; i++) {
+    let reviewer = reviewers[i];
     let msg = {
-      to: recipients[i],
+      to: reviewer.email,
       from: 'test@example.com',
       templateId: process.env.SENDGRID_TEMPLATE_ADMIN,
       dynamic_template_data: {
-        "reviewer_name": reviewerName,
-        "applicant": applicantName,
+        "reviewer_name": reviewer.name,
+        "applicant": applicant,
       }
     }
     emails.push(msg);
@@ -22,18 +24,20 @@ function createAdminEmails(recipients = [], reviewerName, applicantName) {
   return emails;
 }
 
-//Will You be Willing to Review?
-function createProposalEmails(cleanedPeopleList, applicantName, attachment) {
+//Message: Will You be Willing to Review?
+function createProposalEmails(reviewers, applicant, attachment) {
   let emails = [];
 
-  for (let i=0; i<cleanedPeopleList.length; i++) {
+  //Parse through Reviewers to create Emails
+  for (let i=0; i<reviewers.length; i++) {
+    let reviewer = reviewers[i];
     let msg = {
-      to: cleanedPeopleList[i].email,
+      to: reviewer.email,
       from: 'test@example.com',
       templateId: process.env.SENDGRID_TEMPLATE_PROPOSAL,
       dynamic_template_data: {
-        "reviewer_name": cleanedPeopleList[i].name,
-        "applicant": applicantName,
+        "reviewer_name": reviewer.name,
+        "applicant": applicant,
       },
       attachments: [attachment]
     }

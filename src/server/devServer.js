@@ -76,7 +76,7 @@ const sendEmailRouter = require('./routes/sendEmail.js');
 app.use('/auth', authRouter);
 app.use('/login', loginRouter);
 app.use('/user', userRouter);
-app.use('/sendEmail', sendEmailRouter);
+app.use('/email', sendEmailRouter);
 
 //Must be placed last so routes run first
 app.use('*', (req, res, next) => {

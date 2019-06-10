@@ -60,20 +60,17 @@ export default class Subform extends React.Component {
 
       let { name } = e.target;
       let file = e.target[2].files[0];
-      console.log(file);
-
       let emails = [];
 
       //Get Values from Multiple Select
       const selected = document.querySelectorAll('.reviewers option:checked');
       const values = Array.from(selected).map(el => el.value); //Array.from --> transforms list into array
-      console.log(values);
 
       for (let i=0; i<values.length; i++) {
         emails.push(values[i]);
       }
 
-      const url = '/sendEmail';
+      const url = '/email/proposer';
       const formData = new FormData();
       formData.append('file', file);
       formData.append('name', name.value);
@@ -89,6 +86,10 @@ export default class Subform extends React.Component {
         if (response.data.success) {
           this.setState({
             emailSent: true
+          })
+        } else {
+          this.setState({
+            emailSent: false
           })
         }
       });

@@ -64,7 +64,7 @@ const sendEmailRouter = require('./routes/sendEmail.js');
 app.use('/auth', authRouter);
 app.use('/login', loginRouter);
 app.use('/user', userRouter);
-app.use('/sendEmail', sendEmailRouter);
+app.use('/email', sendEmailRouter);
 
 //Serve Index on Client Call for History Redirect
 app.get("*", (req,res)=> {

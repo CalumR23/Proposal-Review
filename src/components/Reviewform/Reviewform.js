@@ -12,7 +12,8 @@ export default class Reviewform extends React.Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.state = {
         users: [],
-        validForm: true
+        validForm: true,
+        emailSent: false
       }
     }
 
@@ -33,31 +34,70 @@ export default class Reviewform extends React.Component {
       //Form validation
       e.preventDefault();
       let { reviewer_one, reviewer_two, reviewer_three, applicant } = e.target;
-      let uniqueEmails = this.returnUnique([reviewer_one.value, reviewer_two.value, reviewer_three.value]);
-      applicant = applicant.value;
 
-      let checkLength = isLength(applicant, {min: 3});
+      //Form Validation
+      let checkLength = isLength(applicant.value, {min: 3});
       if (!checkLength) {
         this.setState({
           validForm: false
         })
-      } else {
-        this.setState({
-          validForm: true
+        return;
+      }
+      else {
+
+        //Send Post Request
+        let uniqueReviewers = this.returnUnique([reviewer_one.value, reviewer_two.value, reviewer_three.value]);
+        let postObj = {
+          applicant: applicant.value,
+          reviewers: uniqueReviewers
+        };
+
+        console.log(postObj);
+        axios.post('/email/admin', postObj).then((response)=> {
+          //Email Has Been Sent Successfully
+          console.log(response);
+          if (response.data.success) {
+            this.setState({
+              validForm: true,
+              emailSent: response.data.success
+            })
+          }
         })
       }
     }
 
-    returnUnique(emails) {
-      return emails.filter((v, i, a) => {
-        return a.indexOf(v) === i && (v != "");
-      }); //Check if index of array is its own index;
+    returnUnique(objs) {
+      //Make Unique Reviewers Array
+      let newObjs = [];
+      //Only Return Unique Reviewers that were selected
+      for (let i=0; i<objs.length; i++) {
+        let obj = objs[i];
+        let objArray = obj.split(";");
+
+        if (objArray[0] == "") continue; //IF email is None, skip!
+
+        let newObj = {
+          name: objArray[1],
+          email: objArray[0]
+        }
+        newObjs.push(newObj);
+      }
+
+      return newObjs;
     }
 
     render() {
       let error_message = "";
+      let email_success_message = "";
+      let successStyles = {color: 'green', padding: '5px', margin: '0'};
+      let errorStyles = {color: 'red', padding: '5px', margin: '0'}
+
       if (!this.state.validForm) {
-        error_message = <p style={{color: 'red', padding: '5px', margin: '0'}}>Applicant name must be at least 3 characters long.</p>
+        error_message = <p style={errorStyles}>Applicant name must be at least 3 characters long.</p>
+      }
+
+      if (this.state.emailSent) {
+        email_success_message = <p style={successStyles}>Your Emails were sent successfully!</p>
       }
 
       return (
@@ -73,7 +113,10 @@ export default class Reviewform extends React.Component {
                     <Form.Label>Reviewer 1</Form.Label>
                     <Form.Control style={{width: '300px'}} as="select" name='emails' className='reviewers'>
                       {this.state.users.map((user, index)=> {
-                        return <option value={user.email} key={index}>{this.fullName(user.firstName,user.lastName)} —— {user.email}</option>
+                        return <option
+                          value={user.email + ";" + this.fullName(user.firstName, user.lastName)}
+                          key={index}>{this.fullName(user.firstName,user.lastName)} —— {user.email}
+                        </option>
                       })}
                       <option value=''>None</option>
                     </Form.Control>
@@ -83,7 +126,7 @@ export default class Reviewform extends React.Component {
                     <Form.Label>Reviewer 2</Form.Label>
                     <Form.Control style={{width: '300px'}} as="select" name='emails' className='reviewers'>
                       {this.state.users.map((user, index)=> {
-                        return <option value={user.email} key={index}>{this.fullName(user.firstName,user.lastName)} —— {user.email}</option>
+                        return <option value={user.email + ";" + this.fullName(user.firstName, user.lastName)} key={index}>{this.fullName(user.firstName,user.lastName)} —— {user.email}</option>
                       })}
                       <option value=''>None</option>
                     </Form.Control>
@@ -93,7 +136,7 @@ export default class Reviewform extends React.Component {
                     <Form.Label>Reviewer 3</Form.Label>
                     <Form.Control style={{width: '300px'}} as="select" name='emails' className='reviewers'>
                       {this.state.users.map((user, index)=> {
-                        return <option value={user.email} key={index}>{this.fullName(user.firstName,user.lastName)} —— {user.email}</option>
+                        return <option value={user.email + ";" + this.fullName(user.firstName, user.lastName)} key={index}>{this.fullName(user.firstName,user.lastName)} —— {user.email}</option>
                       })}
                       <option value=''>None</option>
                     </Form.Control>
@@ -103,6 +146,7 @@ export default class Reviewform extends React.Component {
                  </Button>
               </Form>
               {error_message}
+              {email_success_message}
           </div>
       )
     }
