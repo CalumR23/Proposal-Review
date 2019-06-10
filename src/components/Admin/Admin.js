@@ -3,10 +3,11 @@ import './Admin.css';
 import Header from '../Header';
 import Footer from '../Footer';
 import Reviewform from '../Reviewform';
-import Update from '../Update';
 
-export default class Admin extends
-  React.Component {
+export default class Admin extends React.Component {
+  componentWillMount() {
+    //Check for Regina's Login
+  }
   constructor(props) {
     super(props);
   }
@@ -16,7 +17,6 @@ export default class Admin extends
       <div>
         <Header />
         <Reviewform />
-        <Update />
         <Footer />
       </div>
     )

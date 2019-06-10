@@ -58,8 +58,8 @@ export default class Subform extends React.Component {
         emailSent: false
       });
 
-      let {name, emailBody} = e.target;
-      let file = e.target[3].files[0];
+      let { name } = e.target;
+      let file = e.target[2].files[0];
       console.log(file);
 
       let emails = [];
@@ -78,7 +78,6 @@ export default class Subform extends React.Component {
       formData.append('file', file);
       formData.append('name', name.value);
       formData.append('emails', emails);
-      formData.append('emailBody', emailBody.value);
       const config = { headers: {'Content-Type': 'multipart/form-data' }};
 
       axios({
@@ -113,14 +112,9 @@ export default class Subform extends React.Component {
                       <Form.Label>Reviewer</Form.Label>
                       <Form.Control style={{width: '300px'}} as="select" name='emails' className='reviewers' multiple>
                         {this.state.users.map((user, index)=> {
-                          return <option value={user.email} key={index}>{fullName(user.firstName,user.lastName)} —— {user.email}</option>
+                          return <option value={user.email + ";" + fullName(user.firstName, user.lastName)} key={index}>{fullName(user.firstName,user.lastName)} —— {user.email}</option>
                         })}
                       </Form.Control>
-                  </Form.Group>
-
-                  <Form.Group controlId="formControlTextarea">
-                      <Form.Label>Email Body</Form.Label>
-                      <Form.Control style={{width: '300px'}} as="textarea" rows="3" name='emailBody'/>
                   </Form.Group>
 
                   <Form.Group controlId="formAttachment">
