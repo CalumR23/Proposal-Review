@@ -17,7 +17,6 @@ class App extends React.Component {
         <ul>
           <li><Link to="/">Login</Link></li>
           <li><Link to="/home">Home</Link></li>
-          <li><Link to="/admin">Admin</Link></li>
         </ul>
 
 
