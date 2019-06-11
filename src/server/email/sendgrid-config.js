@@ -13,6 +13,7 @@ function createAdminEmails(reviewers, applicant) {
       to: reviewer.email,
       from: 'test@example.com',
       templateId: process.env.SENDGRID_TEMPLATE_ADMIN,
+      cc: ['rragan@uci.edu', ' legreene@uci.edu'],
       dynamic_template_data: {
         "reviewer_name": reviewer.name,
         "applicant": applicant,
@@ -34,6 +35,7 @@ function createProposalEmails(reviewers, applicant, attachment) {
     let msg = {
       to: reviewer.email,
       from: 'test@example.com',
+      cc: ['rragan@uci.edu', ' legreene@uci.edu'],
       templateId: process.env.SENDGRID_TEMPLATE_PROPOSAL,
       dynamic_template_data: {
         "reviewer_name": reviewer.name,
