@@ -14,7 +14,8 @@ export default class Subform extends React.Component {
           lastName: "",
           email: ""
         },
-        emailSent: false
+        emailSent: false,
+        errorMessage: ""
       }
       this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -60,12 +61,22 @@ export default class Subform extends React.Component {
 
       let { name } = e.target;
       let file = e.target[2].files[0];
+
+      //If no file, return
+      if (!file) {
+        this.setState({
+          errorMessage: <p style={{color: 'red'}}>Please upload a file — file field cannot be empty.</p>
+        })
+        return;
+      }
+
       let emails = [];
 
       //Get Values from Multiple Select
       const selected = document.querySelectorAll('.reviewers option:checked');
       const values = Array.from(selected).map(el => el.value); //Array.from --> transforms list into array
 
+      //PUsh emails into queue
       for (let i=0; i<values.length; i++) {
         emails.push(values[i]);
       }
@@ -84,8 +95,11 @@ export default class Subform extends React.Component {
         config: config,
       }).then((response)=> {
         if (response.data.success) {
+          let inputs = document.querySelectorAll('input');
+          inputs.forEach((input)=> input.value = "");
           this.setState({
-            emailSent: true
+            emailSent: true,
+            errorMessage: ""
           })
         } else {
           this.setState({
@@ -128,6 +142,7 @@ export default class Subform extends React.Component {
                   </Button>
               </Form>
               <p className='success-message' style={{color: 'green'}}>{this.state.emailSent ? 'Your email has been sent!' : ""}</p>
+              {this.state.errorMessage}
         </div>
       )
     }

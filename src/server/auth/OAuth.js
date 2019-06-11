@@ -20,20 +20,32 @@ passport.use(
   }, (accessToken, refreshToken, profile, done)=> {
     //profile is the profile you requested from google
     //check if user exists
+    let email = profile.emails[0].value;
+    console.log(email);
+
     User.findOne({googleID: profile.id}).then((user)=> {
       if (user) {
         done(null, user);
       }
       else {
-        let newUser = new User({
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
-          email: profile.emails[0].value,
-          googleID: profile.id
-        });
-        newUser.save().then((newUser)=> {
-          done(null, newUser);
-        });
+
+        User.findOne({email}).then((user)=> {
+          if (!user) {
+            let newUser = new User({
+              firstName: profile.name.givenName,
+              lastName: profile.name.familyName,
+              email: profile.emails[0].value,
+              googleID: profile.id
+            });
+            newUser.save().then((newUser)=> {
+              done(null, newUser);
+            });
+          } else {
+            User.findOneAndUpdate({email}, {googleID: profile.id}).then((user)=> {
+              done(null, user);
+            });
+          }
+        })
       }
     })
 
