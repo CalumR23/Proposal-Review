@@ -14,10 +14,6 @@ class App extends React.Component {
     return (
       <Router>
       <div>
-        <ul>
-          <li><Link to="/">Login</Link></li>
-          <li><Link to="/home">Home</Link></li>
-        </ul>
 
 
         <Route exact path="/" component={Login} />
