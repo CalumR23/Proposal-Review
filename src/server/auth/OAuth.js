@@ -21,8 +21,6 @@ passport.use(
     //profile is the profile you requested from google
     //check if user exists
     let email = profile.emails[0].value;
-    console.log(email);
-
     User.findOne({googleID: profile.id}).then((user)=> {
       if (user) {
         done(null, user);
